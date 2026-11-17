@@ -1,0 +1,336 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Lover | Restaurant POS</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="brand-icon">🍽️</div>
+            <div>
+                <h2>Food Lover</h2>
+                <p>Restaurant POS</p>
+            </div>
+        </div>
+
+        <div class="sidebar-label">WORKSPACE</div>
+
+        <button class="side-link active" data-page="pos">🧾 <span>Billing POS</span></button>
+        <button class="side-link" data-page="orders">📋 <span>Orders</span></button>
+
+        <div class="sidebar-label">MANAGEMENT</div>
+
+        <button class="side-link" data-page="admin">⚙️ <span>Admin Panel</span></button>
+
+        <div class="sidebar-footer">
+            <div class="admin-avatar">A</div>
+            <div>
+                <h4>Food Lover</h4>
+                <p>Restaurant Software</p>
+            </div>
+        </div>
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+
+        <!-- POS PAGE -->
+        <section id="posPage" class="page">
+
+            <header class="topbar">
+                <div>
+                    <h1>Billing Counter</h1>
+                    <p>Manage restaurant orders and generate bills</p>
+                </div>
+
+                <div class="top-actions">
+                    <div class="open-status"><span></span> Restaurant Open</div>
+                    <div class="date-box" id="currentDate"></div>
+                </div>
+            </header>
+
+            <!-- ORDER TYPES -->
+            <section class="order-types">
+                <button class="type-btn active" data-type="dinein">🪑 Dine In</button>
+                <button class="type-btn" data-type="takeaway">🛍️ Takeaway</button>
+                <button class="type-btn" data-type="delivery">🛵 Delivery</button>
+            </section>
+
+            <!-- TABLES -->
+            <section class="table-area" id="tableArea">
+                <div class="section-title">
+                    <div>
+                        <h2>Restaurant Tables</h2>
+                        <p>Select a table to start or continue an order</p>
+                    </div>
+                    <div class="table-legend">
+                        <span><i class="green-dot"></i> Available</span>
+                        <span><i class="orange-dot"></i> Occupied</span>
+                    </div>
+                </div>
+
+                <div class="tables-grid" id="tablesGrid"></div>
+            </section>
+
+            <!-- BILLING -->
+            <section class="workspace">
+
+                <div class="menu-panel">
+                    <div class="section-title">
+                        <div>
+                            <h2>Food Menu</h2>
+                            <p>Choose items added by restaurant admin</p>
+                        </div>
+                    </div>
+
+                    <div class="search-box">
+                        <span>⌕</span>
+                        <input type="text" id="searchInput" placeholder="Search food items...">
+                    </div>
+
+                    <div class="categories" id="categories"></div>
+                    <div class="food-grid" id="foodGrid"></div>
+                </div>
+
+
+                <!-- CURRENT BILL -->
+                <div class="bill-panel">
+
+                    <div class="bill-heading">
+                        <div>
+                            <h2>Current Order</h2>
+                            <p id="orderLabel">Table 01</p>
+                        </div>
+                        <span class="order-icon">🧾</span>
+                    </div>
+
+                    <div class="customer-fields" id="customerFields">
+                        <input type="text" id="customerName" placeholder="Customer name">
+                        <input type="tel" id="customerPhone" placeholder="Phone number">
+                        <input type="text" id="customerAddress" placeholder="Delivery address">
+                    </div>
+
+                    <div class="waiter-select" id="waiterArea">
+                        <label>Assigned Waiter</label>
+                        <select id="waiterSelect">
+                            <option>Ali</option>
+                            <option>Ahmed</option>
+                            <option>Usman</option>
+                            <option>Bilal</option>
+                            <option>Hamza</option>
+                            <option>Zain</option>
+                            <option>Hassan</option>
+                        </select>
+                    </div>
+
+                    <div class="cart-heading">
+                        <span>Order Items</span>
+                        <span id="itemCount">0 Items</span>
+                    </div>
+
+                    <div class="cart-items" id="cartItems"></div>
+
+                    <div class="bill-calculation">
+                        <div>
+                            <span>Subtotal</span>
+                            <strong id="subtotal">Rs. 0</strong>
+                        </div>
+                        <div>
+                            <span>Delivery Charges</span>
+                            <strong id="deliveryCharge">Rs. 0</strong>
+                        </div>
+                        <div class="total-row">
+                            <span>Total Amount</span>
+                            <strong id="grandTotal">Rs. 0</strong>
+                        </div>
+                    </div>
+
+                    <div class="payment-area">
+                        <label>Payment Method</label>
+                        <select id="paymentMethod">
+                            <option>Cash</option>
+                            <option>Card</option>
+                            <option>Online Transfer</option>
+                        </select>
+
+                        <button class="print-btn" id="printBill">🖨️ Print Bill</button>
+                        <button class="clear-btn" id="clearOrder">Clear Current Order</button>
+                    </div>
+                </div>
+            </section>
+        </section>
+
+
+        <!-- ADMIN PAGE -->
+        <section id="adminPage" class="page hidden">
+
+            <header class="topbar">
+                <div>
+                    <h1>Admin Panel</h1>
+                    <p>Manage your restaurant food menu</p>
+                </div>
+                <button class="logout-btn" id="logoutBtn">Logout ↗</button>
+            </header>
+
+            <div class="admin-welcome">
+                <div>
+                    <h2>Food Menu Management</h2>
+                    <p>Add your restaurant items, update prices and manage availability.</p>
+                </div>
+                <div class="admin-icon">🍔</div>
+            </div>
+
+            <div class="admin-stats">
+                <div class="admin-stat">
+                    <span>Total Food Items</span>
+                    <h2 id="totalItems">0</h2>
+                </div>
+                <div class="admin-stat">
+                    <span>Available Items</span>
+                    <h2 id="availableItems">0</h2>
+                </div>
+                <div class="admin-stat">
+                    <span>Categories</span>
+                    <h2 id="totalCategories">0</h2>
+                </div>
+            </div>
+
+            <div class="admin-menu-box">
+
+                <div class="section-title">
+                    <div>
+                        <h2>Restaurant Menu</h2>
+                        <p>All items added by the administrator</p>
+                    </div>
+                    <button class="add-item-btn" id="openAddItem">+ Add New Item</button>
+                </div>
+
+                <div class="admin-table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Food Item</th>
+                                <th>Category</th>
+                                <th>Price</th>
+                                <th>Availability</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminItemsList"></tbody>
+                    </table>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ORDERS PAGE -->
+        <section id="ordersPage" class="page hidden">
+            <header class="topbar">
+                <div>
+                    <h1>Order History</h1>
+                    <p>Previously printed restaurant bills</p>
+                </div>
+            </header>
+
+            <div class="admin-menu-box">
+                <div class="section-title">
+                    <h2>Completed Orders</h2>
+                </div>
+                <div class="admin-table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Type</th>
+                                <th>Customer / Table</th>
+                                <th>Total</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ordersList"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer">Food Lover Restaurant POS · Demo Version 1.0</footer>
+
+    </main>
+</div>
+
+
+<!-- ADMIN LOGIN MODAL -->
+<div class="modal" id="loginModal">
+    <div class="modal-box login-box">
+        <button class="modal-close" data-close="loginModal">×</button>
+        <div class="modal-icon">🔐</div>
+        <h2>Admin Login</h2>
+        <p>Login to manage Food Lover menu</p>
+
+        <form id="loginForm">
+            <label>Email Address</label>
+            <input type="email" id="adminEmail" placeholder="Admin email" required>
+
+            <label>Password</label>
+            <input type="password" id="adminPassword" placeholder="Password" required>
+
+            <p class="login-error" id="loginError"></p>
+            <button type="submit" class="save-btn">Login to Admin Panel</button>
+        </form>
+
+        <small>Demo: admin@foodlover.com / 123456</small>
+    </div>
+</div>
+
+
+<!-- ADD / EDIT FOOD MODAL -->
+<div class="modal" id="itemModal">
+    <div class="modal-box">
+        <button class="modal-close" data-close="itemModal">×</button>
+        <h2 id="itemModalTitle">Add Food Item</h2>
+        <p>Add food details to your restaurant menu.</p>
+
+        <form id="itemForm">
+
+            <label>Food Name</label>
+            <input type="text" id="foodName" placeholder="e.g. Chicken Burger" required>
+
+            <label>Category</label>
+            <input type="text" id="foodCategory" placeholder="e.g. Burger, Pizza, BBQ" required>
+
+            <label>Price (Rs.)</label>
+            <input type="number" id="foodPrice" placeholder="e.g. 500" min="1" required>
+
+            <label>Food Image URL</label>
+            <input type="url" id="foodImage" placeholder="Paste image link" required>
+
+            <img id="imagePreview" class="image-preview" alt="Food preview">
+
+            <label class="availability-check">
+                <input type="checkbox" id="foodAvailable" checked>
+                Item is available
+            </label>
+
+            <button type="submit" class="save-btn">Save Food Item</button>
+        </form>
+    </div>
+</div>
+
+
+<!-- PRINT RECEIPT -->
+<div id="receipt" class="receipt"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
